@@ -43,7 +43,7 @@ GIF created with ...
 
 ## Notes
 
-Describe any challenges encountered while building the app.
+Creating a search functionality + integrating auto complete
 
 ## License
 
