@@ -1,0 +1,12 @@
+.search-input {
+  padding: 1rem;
+  border-radius: 0.25rem;
+  border-width: 0;
+  outline: none;
+  width: 100%;
+  max-width: 596px;
+}
+
+*:focus {
+  outline: none;
+}

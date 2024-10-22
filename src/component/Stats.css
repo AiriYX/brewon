@@ -1,0 +1,19 @@
+.stats-container {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+
+.stat-card {
+  display: flex;
+  padding: 2em;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: gray;
+  border-radius: 0.25em;
+  max-width: 300px;
+}
