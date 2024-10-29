@@ -1,12 +1,23 @@
 import "./Search.css";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import * as z from "zod";
+import { Controller, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { search } from "../services/Brewery";
 
+const schema = z.object({ query: z.string() });
+
 export const Search = ({ setSearching, setSearchList }) => {
-  const [query, setQuery] = useState("");
+  const { control, watch, formState } = useForm({
+    resolver: zodResolver(schema),
+    defaultValues: { query: "" },
+    mode: "onChange",
+  });
+  const { errors } = formState;
+  const query = watch("query");
 
   useEffect(() => {
-    if (query.length === 0) {
+    if (!formState.isValid || query.length === 0) {
       setSearching(false);
       setSearchList([]);
       return;
@@ -24,20 +35,25 @@ export const Search = ({ setSearching, setSearchList }) => {
 
     setSearching(true);
     doSearch();
-  }, [query, setSearchList, setSearching]);
+  }, [query, formState.isValid, setSearching, setSearchList]);
 
   return (
-    <form>
-      <input
-        className="search-input"
-        type="text"
-        value={query}
-        placeholder="Enter a brewery name or location..."
-        onChange={(e) => {
-          e.preventDefault();
-          setQuery(e.target.value);
-        }}
+    <>
+      <Controller
+        name="query"
+        control={control}
+        render={(props) => (
+          <input
+            {...props.field}
+            className="search-input"
+            type="text"
+            placeholder="Enter a brewery name or location..."
+          />
+        )}
       />
-    </form>
+      {errors.query && (
+        <div className="error-message">{errors.query.message}</div>
+      )}
+    </>
   );
 };

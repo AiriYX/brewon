@@ -26,6 +26,33 @@ export class BreweryItem {
 }
 
 /**
+ * Returns a single brewery for the identifier supplied.
+ *
+ * @param req.breweryId
+ * @returns A single brewery.
+ */
+export const getBrewery = async ({ breweryId }) => {
+  try {
+    const encodedBreweryId = encodeURIComponent(breweryId);
+    const url = `https://api.openbrewerydb.org/v1/breweries/${encodedBreweryId}`;
+    const response = await fetch(url, { method: "GET" });
+    if (response.status >= 400) {
+      throw new Error(
+        response.status === 404
+          ? "Could not find the brewery for the specified identifier"
+          : "An unknown error occurred."
+      );
+    }
+
+    const brewery = await response.json();
+    return new BreweryItem(brewery);
+  } catch (error) {
+    console.error("An error occurred: ", error);
+    throw error;
+  }
+};
+
+/**
  * Returns a list of breweries.
  *
  * @returns The list of breweries.

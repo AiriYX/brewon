@@ -1,0 +1,21 @@
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: row;
+}
+
+.navbar-container {
+  margin: 0;
+  padding: 0;
+  width: 220px;
+  position: fixed;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+.content {
+  display: flex;
+  flex: 1;
+  padding: 2rem 2rem 2rem 360px;
+}
